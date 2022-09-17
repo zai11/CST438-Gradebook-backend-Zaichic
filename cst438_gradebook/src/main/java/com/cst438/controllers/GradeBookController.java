@@ -1,5 +1,6 @@
 package com.cst438.controllers;
 
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -42,6 +44,49 @@ public class GradeBookController {
 	
 	@Autowired
 	RegistrationService registrationService;
+	
+	// add an assignment
+	@PostMapping("/assignment")
+	public void addAssignment(@RequestBody AssignmentListDTO.AssignmentDTO requestBody) {
+		String email = "dwisneski@csumb.edu";  // user name (should be instructor's email) 
+		
+		Course c = courseRepository.findById(requestBody.courseId).orElse(null);
+		if (!c.getInstructor().equals(email)) {
+			throw new ResponseStatusException( HttpStatus.UNAUTHORIZED, "Not Authorized. " );
+		}
+		
+		Assignment assignment = new Assignment();
+		
+		assignment.setName(requestBody.assignmentName);
+		assignment.setCourse(courseRepository.findById(requestBody.courseId).orElse(null));
+		assignment.setDueDate(Date.valueOf(requestBody.dueDate));
+		
+		assignmentRepository.save(assignment);
+	}
+	
+	// Update an assignment
+	@PutMapping("/assignment/{id}")
+	public void updateAssignment(@RequestBody AssignmentListDTO.AssignmentDTO requestBody, @PathVariable("id") Integer assignmentId) {
+		Assignment assignment = assignmentRepository.findById(assignmentId).orElse(null);
+		
+		assignment.setName(requestBody.assignmentName);
+		
+		assignmentRepository.save(assignment);
+	}
+	
+	// Delete an assignment
+	@DeleteMapping("/assignment/{id}")
+	public void deleteAssignment(@PathVariable("id") Integer assignmentId) {
+		Assignment assignment = assignmentRepository.findById(assignmentId).orElse(null);
+		
+		System.out.println(assignmentGradeRepository.findByAssignmentIdAndStudentEmail(assignmentId, "testadadadwdwad"));
+		for (Enrollment e : assignment.getCourse().getEnrollments()) {
+			if (assignmentGradeRepository.findByAssignmentIdAndStudentEmail(assignmentId, e.getStudentEmail()) != null)
+				throw new ResponseStatusException( HttpStatus.BAD_REQUEST, "Unable to delete assignment with grades" );
+		}
+		
+		assignmentRepository.delete(assignment);
+	}
 	
 	// get assignments for an instructor that need grading
 	@GetMapping("/gradebook")
