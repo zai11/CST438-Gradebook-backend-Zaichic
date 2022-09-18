@@ -38,4 +38,8 @@
     <appender-ref ref="EclipseLog" />
     <appender-ref ref="MavenConsoleLog" />
   </root>
+<<<<<<< HEAD
+=======
+<logger name="net.schmizz" level="OFF" />
+>>>>>>> branch 'dev' of ssh://git@github.com/zai11/CST438-Gradebook-backend-Zaichic
 </configuration>
