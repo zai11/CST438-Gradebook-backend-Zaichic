@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <workingSetManager>
+<<<<<<< HEAD
+<workingSet editPageId="org.eclipse.jdt.internal.ui.DynamicSourcesWorkingSet" factoryID="org.eclipse.ui.internal.WorkingSetFactory" id="1663446508346_0" label="Java Main Sources" name="Java Main Sources"/>
+<workingSet editPageId="org.eclipse.jdt.internal.ui.DynamicSourcesWorkingSet" factoryID="org.eclipse.ui.internal.WorkingSetFactory" id="1663446508353_1" label="Java Test Sources" name="Java Test Sources"/>
+<workingSet aggregate="true" factoryID="org.eclipse.ui.internal.WorkingSetFactory" id="1663446508894_2" label="Window Working Set" name="Aggregate for window 1663446508894"/>
+=======
 <workingSet editPageId="org.eclipse.jdt.internal.ui.DynamicSourcesWorkingSet" factoryID="org.eclipse.ui.internal.WorkingSetFactory" id="1662656315671_0" label="Java Main Sources" name="Java Main Sources"/>
 <workingSet editPageId="org.eclipse.jdt.internal.ui.DynamicSourcesWorkingSet" factoryID="org.eclipse.ui.internal.WorkingSetFactory" id="1662656315685_1" label="Java Test Sources" name="Java Test Sources"/>
 <workingSet aggregate="true" factoryID="org.eclipse.ui.internal.WorkingSetFactory" id="1662656316550_2" label="Window Working Set" name="Aggregate for window 1662656316550"/>
+>>>>>>> branch 'dev' of ssh://git@github.com/zai11/CST438-Gradebook-backend-Zaichic
 </workingSetManager>
