@@ -50,7 +50,8 @@ public class GradeBookController {
 	public void addAssignment(@RequestBody AssignmentListDTO.AssignmentDTO requestBody) {
 		String email = "dwisneski@csumb.edu";  // user name (should be instructor's email) 
 		
-		Course c = courseRepository.findById(requestBody.courseId).orElse(null);
+		Course c = courseRepository.findByTitle(requestBody.courseTitle).orElse(null);
+		System.out.println("Title: " + requestBody.courseTitle);
 		if (!c.getInstructor().equals(email)) {
 			throw new ResponseStatusException( HttpStatus.UNAUTHORIZED, "Not Authorized. " );
 		}
@@ -58,7 +59,7 @@ public class GradeBookController {
 		Assignment assignment = new Assignment();
 		
 		assignment.setName(requestBody.assignmentName);
-		assignment.setCourse(courseRepository.findById(requestBody.courseId).orElse(null));
+		assignment.setCourse(courseRepository.findByTitle(requestBody.courseTitle).orElse(null));
 		assignment.setDueDate(Date.valueOf(requestBody.dueDate));
 		
 		assignmentRepository.save(assignment);
