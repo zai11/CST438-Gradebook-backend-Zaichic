@@ -61,6 +61,7 @@ public class GradeBookController {
 		assignment.setName(requestBody.assignmentName);
 		assignment.setCourse(courseRepository.findByTitle(requestBody.courseTitle).orElse(null));
 		assignment.setDueDate(Date.valueOf(requestBody.dueDate));
+		assignment.setNeedsGrading(1);
 		
 		assignmentRepository.save(assignment);
 	}
